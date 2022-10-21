@@ -1,0 +1,28 @@
+spring:
+  kafka:
+    bootstrap-servers: "localhost:9092"
+    consumer:
+      value-deserializer: "org.springframework.kafka.support.serializer.JsonDeserializer"
+      properties:
+        "[spring.json.value.default.type]": "edu.miu.sa.reservation.entity.Order"
+        "[spring.json.trusted.packages]": "edu.miu.sa.reservation"
+    producer:
+      value-serializer: "org.springframework.kafka.support.serializer.JsonSerializer"
+      properties:
+        "[spring.json.add.type.headers]": false
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+kafka:
+  topic: "ReservationOrderEvent"
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+kafka:
+  topic: ${RESERVATION_ORDER_EVENT}
