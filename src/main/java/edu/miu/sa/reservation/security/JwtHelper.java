@@ -2,6 +2,7 @@ package edu.miu.sa.reservation.security;
 
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -11,7 +12,8 @@ import java.util.Map;
 @Slf4j
 public class JwtHelper {
 
-    private final static String SECRET = "top-secret";
+    @Value("${jwt.secret}")
+    private String secret;
 
     private final static long EXPIRATION = 50 * 60 * 60 * 60;
 
@@ -20,7 +22,7 @@ public class JwtHelper {
                 .setSubject(email)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))
-                .signWith(SignatureAlgorithm.HS512, SECRET)
+                .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
     }
 
@@ -29,13 +31,13 @@ public class JwtHelper {
                 .setSubject(email)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION * 60))
-                .signWith(SignatureAlgorithm.HS512, SECRET)
+                .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
     }
 
     public String getSubject(String token) {
         return Jwts.parser()
-                .setSigningKey(SECRET)
+                .setSigningKey(secret)
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
@@ -44,7 +46,7 @@ public class JwtHelper {
     public boolean validateToken(String token) {
         try {
             Jwts.parser()
-                    .setSigningKey(SECRET)
+                    .setSigningKey(secret)
                     .parseClaimsJws(token);
             return true;
         } catch (SignatureException | MalformedJwtException | ExpiredJwtException |
@@ -62,7 +64,7 @@ public class JwtHelper {
                 .setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))
-                .signWith(SignatureAlgorithm.HS512, SECRET).compact();
+                .signWith(SignatureAlgorithm.HS512, secret).compact();
     }
 
 
@@ -70,7 +72,7 @@ public class JwtHelper {
         String result = null;
         try {
             result = Jwts.parser()
-                    .setSigningKey(SECRET)
+                    .setSigningKey(secret)
                     .parseClaimsJws(token)
                     .getBody()
                     .getSubject();

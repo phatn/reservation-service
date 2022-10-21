@@ -32,6 +32,8 @@ spring:
 kafka:
   topic: "ReservationOrderEvent"
 
+jwt:
+  secret: "top_secret"
 ---
 spring:
   config:
@@ -51,3 +53,6 @@ spring:
       local-datacenter: ${DATA_CENTER}
 kafka:
   topic: ${RESERVATION_ORDER_EVENT}
+
+jwt:
+  secret: ${JWT_SECRET}
