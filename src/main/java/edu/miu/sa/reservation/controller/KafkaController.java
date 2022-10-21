@@ -1,6 +1,6 @@
 package edu.miu.sa.reservation.controller;
 
-import edu.miu.sa.reservation.entity.Order;
+import edu.miu.sa.reservation.entity.Reservation;
 import edu.miu.sa.reservation.service.KafkaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,8 +20,8 @@ public class KafkaController {
     private String topic;
 
     @PostMapping
-    public void send(@RequestBody Order order) {
+    public void send(@RequestBody Reservation reservation) {
 
-        kafkaService.publish(topic, order);
+        kafkaService.publish("topic", reservation);
     }
 }

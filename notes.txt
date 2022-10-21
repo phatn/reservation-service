@@ -1,0 +1,5 @@
+docker run --rm -it --network reservation-service_reservation-network nuvo/docker-cqlsh cqlsh reservation-db 9042 --cqlversion='3.4.5'
+
+CREATE KEYSPACE IF NOT EXISTS reservation_ks WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : '1' };
+
+select * from reservation_ks.reservation;

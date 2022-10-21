@@ -19,4 +19,12 @@ public class KafkaConfiguration {
                 .replicas(1)
                 .build();
     }
+
+    @Bean
+    public NewTopic topic1() {
+        return TopicBuilder.name("topic")
+                .partitions(10)
+                .replicas(1)
+                .build();
+    }
 }

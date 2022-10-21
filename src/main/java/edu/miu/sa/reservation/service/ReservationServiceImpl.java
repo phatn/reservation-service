@@ -1,0 +1,38 @@
+package edu.miu.sa.reservation.service;
+
+import edu.miu.sa.reservation.entity.Reservation;
+import edu.miu.sa.reservation.repository.ReservationRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.UUID;
+
+@Service
+@RequiredArgsConstructor
+@Slf4j
+public class ReservationServiceImpl implements ReservationService {
+
+    private final ReservationRepository reservationRepository;
+
+    @Override
+    @Transactional
+    public void save(Reservation reservation) {
+        reservation.setId(UUID.randomUUID());
+        reservation.setTotal(reservation.getPrice() * reservation.getNight());
+        reservationRepository.save(reservation);
+    }
+
+    @Override
+    public Reservation getById(UUID id) {
+        return reservationRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Cannot find reservation: " + id));
+    }
+
+    @Override
+    public List<Reservation> getAll() {
+        return reservationRepository.findAll();
+    }
+}

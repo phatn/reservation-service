@@ -1,13 +1,14 @@
-package edu.miu.sa.reservation.entity;
+package edu.miu.sa.reservation.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class Student {
+@NoArgsConstructor
+public class Response {
 
-    private String name;
+    private String message;
+
 }

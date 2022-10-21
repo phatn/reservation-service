@@ -25,3 +25,25 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+
+  reservation-db:
+    image: cassandra:4.0
+    container_name: reservation-db
+    restart: always
+    environment:
+      - M:1
+    ports:
+      - "9042:9042"
+      - "9160:9160"
+    networks:
+      - reservation-network
+    volumes:
+      - reservation-vol:/var/lib/cassandra
+
+volumes:
+  reservation-vol:
+    driver: local
+
+networks:
+  reservation-network:
+    driver: bridge
