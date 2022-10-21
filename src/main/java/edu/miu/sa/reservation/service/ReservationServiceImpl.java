@@ -4,6 +4,7 @@ import edu.miu.sa.reservation.entity.Reservation;
 import edu.miu.sa.reservation.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,11 @@ import java.util.UUID;
 @Slf4j
 public class ReservationServiceImpl implements ReservationService {
 
+    @Value("${kafka.topic.payment}")
+    private String paymentTopic;
+
+    private final KafkaService kafkaService;
+
     private final ReservationRepository reservationRepository;
 
     @Override
@@ -26,6 +32,7 @@ public class ReservationServiceImpl implements ReservationService {
         reservation.setEmail(email);
         reservation.setTotal(reservation.getPrice() * reservation.getNight());
         reservationRepository.save(reservation);
+        kafkaService.publish(paymentTopic,  reservation);
     }
 
     @Override

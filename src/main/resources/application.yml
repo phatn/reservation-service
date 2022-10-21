@@ -30,7 +30,9 @@ spring:
       local-datacenter: datacenter1
 
 kafka:
-  topic: "ReservationOrderEvent"
+  topic:
+
+    payment: "PAYMENT_TOPIC"
 
 jwt:
   secret: "top_secret"
