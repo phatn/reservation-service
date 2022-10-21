@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class KafkaServiceImpl implements KafkaService {
 
-
     private final KafkaTemplate<String, Reservation> kafkaTemplate;
 
     @Override

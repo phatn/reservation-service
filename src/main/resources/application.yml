@@ -23,9 +23,9 @@ spring:
 
   data:
     cassandra:
-      contact-points: "localhost:9042"
+      contact-points: "localhost"
       keyspace-name: reservation_ks
-      #port: 9042
+      port: 9042
       schema-action: create_if_not_exists
       local-datacenter: datacenter1
 
@@ -39,5 +39,15 @@ spring:
       on-profile: prod
   kafka:
     bootstrap-servers: ${BOOTSTRAP_SERVERS}
+
+  main:
+    allow-bean-definition-overriding: true
+  data:
+    cassandra:
+      contact-points: ${CASSANDRA_CONTACT_POINTS}
+      keyspace-name: ${KEYSPACE_NAME}
+      port: ${CASSANDRA_PORT}
+      schema-action: create_if_not_exists
+      local-datacenter: ${DATA_CENTER}
 kafka:
   topic: ${RESERVATION_ORDER_EVENT}

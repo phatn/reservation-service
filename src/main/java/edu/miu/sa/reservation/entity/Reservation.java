@@ -20,6 +20,9 @@ public class Reservation {
     private UUID id;
 
     @Column
+    private String email;
+
+    @Column
     private UUID propertyId;
 
     @Column
