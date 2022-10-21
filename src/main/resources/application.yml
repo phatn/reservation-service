@@ -1,6 +1,5 @@
 spring:
   kafka:
-    bootstrap-servers: "localhost:9092"
     consumer:
       value-deserializer: "org.springframework.kafka.support.serializer.JsonDeserializer"
       properties:
@@ -16,6 +15,8 @@ spring:
   config:
     activate:
       on-profile: dev
+  kafka:
+    bootstrap-servers: "localhost:9092"
 kafka:
   topic: "ReservationOrderEvent"
 
@@ -24,5 +25,7 @@ spring:
   config:
     activate:
       on-profile: prod
+  kafka:
+    bootstrap-servers: ${BOOTSTRAP_SERVERS}
 kafka:
   topic: ${RESERVATION_ORDER_EVENT}

@@ -16,9 +16,12 @@ public class KafkaController {
 
     private final KafkaService kafkaService;
 
+    @Value("${kafka.topic}")
+    private String topic;
+
     @PostMapping
     public void send(@RequestBody Order order) {
 
-        kafkaService.publish("ReservationOrderEvent", order);
+        kafkaService.publish(topic, order);
     }
 }
