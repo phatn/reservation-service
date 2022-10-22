@@ -14,6 +14,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @RequestMapping("/api/reservations")
 @Slf4j
+@CrossOrigin
 public class ReservationController {
 
     private final ReservationService reservationService;
