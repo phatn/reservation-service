@@ -64,7 +64,7 @@ class ReservationServiceImplTest {
     }
 
     @Test
-    void should_return_throw_exception() {
+    void should_throw_exception() {
         UUID reservationId = UUID.randomUUID();
         when(reservationRepository.findById(reservationId)).thenReturn(Optional.ofNullable(null));
         assertThatThrownBy(() -> reservationService.getById(reservationId))
