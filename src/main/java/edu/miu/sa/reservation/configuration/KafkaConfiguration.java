@@ -11,7 +11,7 @@ public class KafkaConfiguration {
 
     @Bean
     public NewTopic topic() {
-        return TopicBuilder.name("test")
+        return TopicBuilder.name("RESERVATION_COMPLETED")
                 .partitions(10)
                 .replicas(1)
                 .build();

@@ -3,7 +3,6 @@ package edu.miu.sa.reservation.service;
 import edu.miu.sa.reservation.entity.Reservation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Service;
@@ -20,6 +19,7 @@ public class KafkaServiceImpl implements KafkaService {
     @Override
     public void publish(String topic, Reservation reservation) {
         ListenableFuture<SendResult<String, Reservation>> future = kafkaTemplate.send(topic, reservation);
+
         future.addCallback(new ListenableFutureCallback<>() {
 
             @Override
@@ -32,7 +32,7 @@ public class KafkaServiceImpl implements KafkaService {
                 log.error("unable to send message= " + reservation, throwable);
             }
         });
-    }
 
+    }
 }
 

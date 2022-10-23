@@ -31,8 +31,9 @@ spring:
 
 kafka:
   topic:
-
     payment: "PAYMENT_TOPIC"
+    property: "RESERVATION_TOPIC"
+    notification: "RESERVATION_COMPLETED"
 
 jwt:
   secret: "top_secret"
