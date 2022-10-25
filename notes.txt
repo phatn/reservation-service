@@ -1,14 +1,14 @@
 # Build image
-docker build -t reservation-service:1.0.1 .
+docker build -t reservation-service:1.0.2 .
 
 # Get image
 docker images | grep reservation
 
 # Tag image
-docker tag ca5029dd030a phatnguyentan/reservation-service:1.0.1
+docker tag 325ee5bb31cd phatnguyentan/reservation-service:1.0.2
 
 # Push image
-docker push phatnguyentan/reservation-service:1.0.1
+docker push phatnguyentan/reservation-service:1.0.2
 
 
 docker run --rm -it --network reservation-service_reservation-network nuvo/docker-cqlsh cqlsh reservation-db 9042 --cqlversion='3.4.5'

@@ -43,22 +43,22 @@ spring:
     activate:
       on-profile: prod
   kafka:
-    bootstrap-servers: ${BOOTSTRAP_SERVERS}
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVER}
 
   main:
-    allow-bean-definition-overriding: ${ALLOW_BEAN_DEFINITION_OVERRIDING}
+    allow-bean-definition-overriding: ${SPRING_ALLOW_BEAN_DEFINITION_OVERRIDING}
   data:
     cassandra:
-      contact-points: ${CASSANDRA_CONTACT_POINTS}
-      port: ${CASSANDRA_PORT}
-      keyspace-name: ${CASSANDRA_KEYSPACE}
-      schema-action: ${CASSANDRA_SCHEME_ACTION}
-      local-datacenter: ${CASSANDRA_DATACENTER}
+      contact-points: ${DB_CONTACT_POINTS}
+      port: ${DB_PORT}
+      keyspace-name: ${DB_RESERVATION_KEYSPACE}
+      schema-action: ${DB_SCHEME_ACTION}
+      local-datacenter: ${DB_DATACENTER}
 kafka:
   topic:
-    payment: ${PAYMENT_TOPIC}
-    property: ${RESERVATION_TOPIC}
-    notification: ${NOTIFICATION_TOPIC}
+    payment: ${RESERVATION_PAYMENT_TOPIC}
+    property: ${RESERVATION_DONE_TOPIC}
+    notification: ${RESERVATION_NOTIFICATION_TOPIC}
 
 jwt:
   secret: ${JWT_SECRET}
