@@ -1,5 +1,43 @@
+# Build image
+docker build -t reservation-service:1.0.1 .
+
+# Get image
+docker images | grep reservation
+
+# Tag image
+docker tag ca5029dd030a phatnguyentan/reservation-service:1.0.1
+
+# Push image
+docker push phatnguyentan/reservation-service:1.0.1
+
+
 docker run --rm -it --network reservation-service_reservation-network nuvo/docker-cqlsh cqlsh reservation-db 9042 --cqlversion='3.4.5'
 
 CREATE KEYSPACE IF NOT EXISTS reservation_ks WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : '1' };
 
 select * from reservation_ks.reservation;
+
+# Get all contexts
+kubectl config get-contexts
+
+# Switch to another context
+kubectl config use-context gke_bubbly-enigma-366417_us-central1-c_sa-final-project-cluster
+
+# Install Kafka
+https://www.ignitesol.com/how-to-deploy-kafka-connect-on-kubernetes-using-helm-charts/
+helm install -name sa -n default ./charts/cp-kafka
+
+# Install Cassandra
+https://docs-v1.k8ssandra.io/install/local/
+
+kubectl apply -f https://raw.githubusercontent.com/rancher/local-path-provisioner/master/deploy/local-path-storage.yaml
+helm repo add k8ssandra https://helm.k8ssandra.io/stable
+helm repo add traefik https://helm.traefik.io/traefik
+helm repo update
+helm install -f kubernetes/k8ssandra.yml k8ssandra k8ssandra/k8ssandra
+
+# Create topic
+kubectl exec -it pod/kafka-broker-76445f6984-kq4w2 -- kafka-topics --create --bootstrap-server 10.14.218.236:9092 --replication-factor 1 --partitions 1 --topic RESERVATION_COMPLETED
+
+kubectl exec -it pod/cassandra-1-cassandra-0 bash
+cqlsh

@@ -20,6 +20,9 @@ public class ReservationServiceImpl implements ReservationService {
     @Value("${kafka.topic.payment}")
     private String paymentTopic;
 
+    @Value("${kafka.topic.property}")
+    private String propertyTopic;
+
     private final KafkaService kafkaService;
 
     private final ReservationRepository reservationRepository;
@@ -32,7 +35,8 @@ public class ReservationServiceImpl implements ReservationService {
         reservation.setEmail(email);
         reservation.setTotal(reservation.getPrice() * reservation.getNight());
         reservationRepository.save(reservation);
-        kafkaService.publish(paymentTopic,  reservation);
+        kafkaService.publish(paymentTopic, reservation);
+        kafkaService.publish(propertyTopic, reservation);
     }
 
     @Override

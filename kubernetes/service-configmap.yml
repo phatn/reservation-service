@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: service-configmap
+data:
+  kafka-boostrap-server: "kafka-service:9092"
+  cassandra-contact-points: "cassandra-1-cassandra-svc"
+  cassandra-keyspace: "reservation"
+  cassandra-port: "9042"
+  cassandra-datacenter: "datacenter1"
+  cassandra-schema-action: "create_if_not_exists"
+  allow-bean-definition-overriding: "true"
+  kafka-topic-payment: "PAYMENT_TOPIC"
+  kafka-topic-property: "RESERVATION_TOPIC"
+  kafka-topic-notification: "RESERVATION_COMPLETED"
+

@@ -24,16 +24,16 @@ spring:
   data:
     cassandra:
       contact-points: "localhost"
-      keyspace-name: reservation_ks
       port: 9042
+      keyspace-name: reservation
       schema-action: create_if_not_exists
       local-datacenter: datacenter1
 
 kafka:
   topic:
-    payment: "PAYMENT_TOPIC"
-    property: "RESERVATION_TOPIC"
-    notification: "RESERVATION_COMPLETED"
+    payment: "PaymentRequestEvent"
+    property: "ReservationDoneEvent"
+    notification: "GetNotificationEvent"
 
 jwt:
   secret: "top_secret"
@@ -46,16 +46,19 @@ spring:
     bootstrap-servers: ${BOOTSTRAP_SERVERS}
 
   main:
-    allow-bean-definition-overriding: true
+    allow-bean-definition-overriding: ${ALLOW_BEAN_DEFINITION_OVERRIDING}
   data:
     cassandra:
       contact-points: ${CASSANDRA_CONTACT_POINTS}
-      keyspace-name: ${KEYSPACE_NAME}
       port: ${CASSANDRA_PORT}
-      schema-action: create_if_not_exists
-      local-datacenter: ${DATA_CENTER}
+      keyspace-name: ${CASSANDRA_KEYSPACE}
+      schema-action: ${CASSANDRA_SCHEME_ACTION}
+      local-datacenter: ${CASSANDRA_DATACENTER}
 kafka:
-  topic: ${RESERVATION_ORDER_EVENT}
+  topic:
+    payment: ${PAYMENT_TOPIC}
+    property: ${RESERVATION_TOPIC}
+    notification: ${NOTIFICATION_TOPIC}
 
 jwt:
   secret: ${JWT_SECRET}

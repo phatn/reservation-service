@@ -52,6 +52,7 @@ public class SecurityConfiguration {
                 .and()
                 .csrf().disable()
                 .authorizeRequests()
+                .antMatchers("/actuator/health/**").permitAll()
                 .antMatchers("/api/login/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/reservations/*").permitAll()
                 .anyRequest()
