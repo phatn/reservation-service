@@ -1,14 +1,14 @@
 # Build image
-docker build -t reservation-service:1.0.4 .
+docker build -t reservation-service:1.0.6 .
 
 # Get image
 docker images | grep reservation
 
 # Tag image
-docker tag  f498ab37ce7c phatnguyentan/authentication-service:1.2
+docker tag  c88f7f325cb4 phatnguyentan/reservation-service:1.0.6
 
 # Push image
-docker push phatnguyentan/authentication-service:1.2
+docker push phatnguyentan/reservation-service:1.0.6
 
 
 docker run --rm -it --network reservation-service_reservation-network nuvo/docker-cqlsh cqlsh reservation-db 9042 --cqlversion='3.4.5'
@@ -41,3 +41,6 @@ kubectl exec -it pod/kafka-broker-76445f6984-kq4w2 -- kafka-topics --create --bo
 
 kubectl exec -it pod/cassandra-1-cassandra-0 bash
 cqlsh
+
+
+kubectl exec -it my-cluster-kafka-0 -c kafka -- bin/kafka-topics.sh --bootstrap-server my-cluster-kafka-bootstrap:9092 --list

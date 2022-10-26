@@ -62,6 +62,10 @@ spring:
       local-datacenter: ${DB_DATACENTER}
       request:
         timeout: ${DB_REQUEST_TIMEOUT}
+  zipkin:
+    baseUrl: ${ZIPKIN_SERVER}
+    service:
+      name: ${ZIPKIN_RESERVATION_SERVICE}
 kafka:
   topic:
     payment: ${PAYMENT_REQUEST_TOPIC}
