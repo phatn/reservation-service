@@ -12,24 +12,24 @@ import org.springframework.util.concurrent.ListenableFutureCallback;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class KafkaServiceImpl implements KafkaService {
+public class KafkaServiceImpl<T> implements KafkaService<T> {
 
-    private final KafkaTemplate<String, Reservation> kafkaTemplate;
+    private final KafkaTemplate<String, T> kafkaTemplate;
 
     @Override
-    public void publish(String topic, Reservation reservation) {
-        ListenableFuture<SendResult<String, Reservation>> future = kafkaTemplate.send(topic, reservation);
+    public void publish(String topic, T data) {
+        ListenableFuture<SendResult<String, T>> future = kafkaTemplate.send(topic, data);
 
         future.addCallback(new ListenableFutureCallback<>() {
 
             @Override
-            public void onSuccess(final SendResult<String, Reservation> message) {
+            public void onSuccess(final SendResult<String, T> message) {
                 log.info("sent message= " + message + " with offset= " + message.getRecordMetadata().offset());
             }
 
             @Override
             public void onFailure(final Throwable throwable) {
-                log.error("unable to send message= " + reservation, throwable);
+                log.error("unable to send message= " + data, throwable);
             }
         });
 

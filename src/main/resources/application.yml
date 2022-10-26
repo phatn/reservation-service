@@ -25,15 +25,21 @@ spring:
     cassandra:
       contact-points: "localhost"
       port: 9042
-      keyspace-name: reservation
+      keyspace-name: reservation_ks
       schema-action: create_if_not_exists
       local-datacenter: datacenter1
+      request:
+        timeout: 10
 
 kafka:
   topic:
     payment: "PaymentRequestEvent"
     property: "ReservationDoneEvent"
     notification: "GetNotificationEvent"
+
+notification:
+  message:
+    separator: "<br/>"
 
 jwt:
   secret: "top_secret"
@@ -54,11 +60,17 @@ spring:
       keyspace-name: ${DB_RESERVATION_KEYSPACE}
       schema-action: ${DB_SCHEME_ACTION}
       local-datacenter: ${DB_DATACENTER}
+      request:
+        timeout: ${DB_REQUEST_TIMEOUT}
 kafka:
   topic:
-    payment: ${RESERVATION_PAYMENT_TOPIC}
+    payment: ${PAYMENT_REQUEST_TOPIC}
     property: ${RESERVATION_DONE_TOPIC}
     notification: ${RESERVATION_NOTIFICATION_TOPIC}
+
+notification:
+  message:
+    separator: ${NOTIFICATION.MESSAGE.SEPARATOR}
 
 jwt:
   secret: ${JWT_SECRET}
